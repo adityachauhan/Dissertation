@@ -1,0 +1,131 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf600
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10940\viewh12520\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\qc\partightenfactor0
+
+\f0\b\fs48 \cf0 DOCUMENTATION\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\fs28 \cf0 \
+
+\b0 All the codes are in Python3\
+Basic packages needed are 
+\b Numpy, CSV and MatPlotLib.
+\b0 \
+Running command for any code file in console is  : 
+\b python3 filename.py\
+
+\b0 All the functions from one file to be used in other file are properly named and imported
+\b\fs48 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\qc\partightenfactor0
+\cf0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\b0\fs26 \cf0 =======================================================================\
+
+\b FOLDER 1.  \'97\'97\'97\'97>  CODES\
+
+\b0 =======================================================================\
+\
+This folder consists of all the 
+\b python3
+\b0  codes, 
+\b dataset
+\b0  folder and 
+\b Results
+\b0  folder.\
+\
+
+\b PYTHON3 CODES
+\b0  : \
+\
+
+\i hmm_train.py  \'97> 					
+\i0 This patch have three functions to return 
+\b Transition 								Probability Matrix,  Emission Probability Matrix 								
+\b0 and
+\b  Average Time matrix
+\b0  based on the datasets of 								segments trajectory.\
+\
+
+\i hmm_MPS_FADatasets.py
+\i0  \'97>		This patch takes all the data from all four datasets of 								segments and place them in observation matrix to be 								passed for training the model and using time datasets 								to calculate average time for training the model. 								These calculated matrices are than used to estimate 								the most probable state sequence based on all the 								datasets.\
+\
+
+\i hmm_MPS_\{i\}_\{j\}.py \'97>			
+\i0 Here valse of 
+\b i and j 
+\b0 are in these combinations, 								200_07, 250_07, 250_90, 300_07 where 200, 250 								and 300 represents segment length and 07 resents 								70% overlap in segments and 90 represents 90% 								overlap in segments.  These model works similarly as 								the one above but for only one dataset at a time.\
+\
+
+\i hmm_MPS_per_Group_\{i\}_\{j\}.py \'97> 	
+\i0 Here valse of 
+\b i and j 
+\b0 are in combinations where I 								represents segment length(200, 250, 300cm) and j 								represents segment overlap percentage(70,90%). 								This patch extract a data from certain dataset based 								on i and j values and divide it in such a way that 								rodent in control group(Group1) and stress group are 								separated. Than similarly the most probable state 								sequence is estimated for each group of each dataset 								separately.\
+\
+
+\i hmm_MPS_per_AnimalID_\{i\}_\{j\} \'97>	
+\i0 Here 
+\b i and j 
+\b0 are in same combinations as in above 								codes. In this patch for each rodent in one dataset at a 								time all 12 trails are considered to train the model and 								than the most probable state sequence is obtained for 								each rodent individually. These results are saved in csv 								file of same name as code minus the hmm in front.\
+\
+
+\i hmm_MPS_per_AnimalID_all_data\'97> 
+\i0 In this patch we just take all four datasets and than 								combine them to get the data for training for each 								rodent to estimate most probable state sequence.\
+\
+
+\i hmm_MPS_each_trial_all_Data.py\'97> 
+\i0 In this patch we need to consider all four files and for 								each rodent get each trial from each dataset and 								combine to get dataset size 4 for each trial of each 								rodent and train the model using this data ti get most 								probable state sequence. This way for each rodent we 								get 12 trials of most probable state sequences. These 								results are also saved in Results folder with same file 								name minus the hmm.\
+\
+
+\i Cross_Validation_Model.py \'97> 		
+\i0 This patch just takes in one dataset at a time to get 								most probable state sequence according to it than 								validate it using K-Fold cross validation against the 								model using 3 remaining datasets to train to give most 								probable state sequence.\
+\
+
+\i Strategies_comparison_per_group.py> 
+\i0 This patch takes in the results from 								hmm_MPS_per_Group_\{i\}_\{j\} and than normalise them 								to bar plot for comparison for both groups\
+\
+
+\i Startegies_plot_per_trial.py \'97> 		
+\i0 This patch bar plots the different strategies(total 8) for 								each trial using data from 								hmm_MPS_each_trial_all_Data.\
+\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\
+
+\b RESULTS : \
+\
+
+\b0 This folder contains csv file results for most probable state sequence for each rodent and csv file for each trial by each rodent. Basically csv files generated on running 
+\b hmm_MPS_per_Group_\{i\}_\{j\}
+\b0  and
+\b  hmm_MPS_each_trial_all_Data.\
+\
+
+\b0 \'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\
+
+\b DATASETS : \
+\
+
+\b0 This folder contains four segments datasets of 200cm\'9770%, 250cm\'9770%, 250cm\'9790% and 300cm\'9770% and four corresponding time files showing which rodent spends which time on which segment.\
+\
+========================================================================\
+\
+
+\b RESULT PLOTS  :\
+\
+
+\b0 This folder contains all the plots for the codes by their names as they appear in dissertation document. Some plots are generated in python while some are generated in MATLAB.\
+========================================================================\
+\
+
+\b TRANSPROB_ANS_EMISSION_CSV_FILES_DEMO:\
+\
+
+\b0 Though transition probability and emission probability is used to train the model they are also used in analysis. For using the results in dissertation for analysis the results were takes directly from console but some demo values of these probabilities are also stored in these csv files of this folder.\
+\
+========================================================================\
+									END\
+========================================================================}
